@@ -43,9 +43,9 @@ class WrouterXidHandler : public WrouterHandler {
 public:
     WrouterXidHandler(transport::TransportPtr transport_ptr,
                       std::shared_ptr<gossip::GossipInterface> bloom_gossip_ptr,
-                      std::shared_ptr<gossip::GossipInterface> bloom_layer_gossip_ptr,
                       std::shared_ptr<gossip::GossipInterface> gossip_rrs_ptr,
-                      std::shared_ptr<gossip::GossipInterface> gossip_dispatcher_ptr);
+                      std::shared_ptr<gossip::GossipInterface> gossip_dispatcher_ptr,
+                      std::shared_ptr<gossip::GossipInterface> gossip_vdg);
 
     ~WrouterXidHandler();
 

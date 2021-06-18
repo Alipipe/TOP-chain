@@ -10,6 +10,7 @@
 #include "xgossip/include/gossip_filter.h"
 #include "xgossip/include/gossip_rrs.h"
 #include "xgossip/include/gossip_utils.h"
+#include "xgossip/include/gossip_vdg.h"
 #include "xkad/routing_table/routing_utils.h"
 #include "xmetrics/xmetrics.h"
 #include "xpbase/base/kad_key/kadmlia_key.h"
@@ -42,10 +43,10 @@ Wrouter * Wrouter::Instance() {
 void Wrouter::Init(base::xcontext_t & context, const uint32_t thread_id, transport::TransportPtr transport_ptr) {
     assert(transport_ptr);
     auto bloom_gossip_ptr = std::make_shared<GossipBloomfilter>(transport_ptr);
-    auto bloom_layer_gossip_ptr = nullptr;
     auto gossip_rrs_ptr = std::make_shared<GossipRRS>(transport_ptr);
     auto gossip_dispatcher_ptr = std::make_shared<GossipDispatcher>(transport_ptr);
-    wxid_handler_ = std::make_shared<WrouterXidHandler>(transport_ptr, bloom_gossip_ptr, bloom_layer_gossip_ptr, gossip_rrs_ptr, gossip_dispatcher_ptr);
+    auto gossip_vdg = std::make_shared<GossipVerifiableDirectedGraph>(transport_ptr);
+    wxid_handler_ = std::make_shared<WrouterXidHandler>(transport_ptr, bloom_gossip_ptr, gossip_rrs_ptr, gossip_dispatcher_ptr, gossip_vdg);
 
     // GossipFilter for global
     gossip::GossipFilter::Instance()->Init();

@@ -218,10 +218,17 @@ std::unordered_map<std::string, std::size_t> ElectRoutingTable::index_map() {
 std::vector<std::string> ElectRoutingTable::get_shuffled_xip2() {
     static std::random_device rd;
     static std::mt19937 g(rd());
+    std::vector<std::string> xip2_for_shuffle;
     {
         std::unique_lock<std::mutex> lock(m_xip2_for_shuffle_mutex);
-        std::shuffle(m_xip2_for_shuffle.begin(), m_xip2_for_shuffle.end(), g);
+        xip2_for_shuffle = m_xip2_for_shuffle;
     }
+    std::shuffle(xip2_for_shuffle.begin(), xip2_for_shuffle.end(), g);
+    return xip2_for_shuffle;
+}
+
+std::vector<std::string> ElectRoutingTable::get_stable_xip2() {
+    std::unique_lock<std::mutex> lock(m_xip2_for_shuffle_mutex);
     return m_xip2_for_shuffle;
 }
 

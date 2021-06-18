@@ -28,21 +28,22 @@ namespace wrouter {
 
 WrouterHandler::WrouterHandler(transport::TransportPtr transport_ptr,
                                std::shared_ptr<gossip::GossipInterface> bloom_gossip_ptr,
-                               std::shared_ptr<gossip::GossipInterface> bloom_layer_gossip_ptr,
                                std::shared_ptr<gossip::GossipInterface> gossip_rrs_ptr,
-                               std::shared_ptr<gossip::GossipInterface> gossip_dispatcher_ptr)
+                               std::shared_ptr<gossip::GossipInterface> gossip_dispatcher_ptr,
+                               std::shared_ptr<gossip::GossipInterface> gossip_vdg)
   : transport_ptr_(transport_ptr)
   , bloom_gossip_ptr_(bloom_gossip_ptr)
-  , bloom_layer_gossip_ptr_(bloom_layer_gossip_ptr)
   , gossip_rrs_ptr_(gossip_rrs_ptr)
-  , gossip_dispatcher_ptr_(gossip_dispatcher_ptr) {
+  , gossip_dispatcher_ptr_(gossip_dispatcher_ptr)
+  , gossip_vdg_(gossip_vdg) {
 }
 
 WrouterHandler::~WrouterHandler() {
     transport_ptr_ = nullptr;
     bloom_gossip_ptr_ = nullptr;
-    bloom_layer_gossip_ptr_ = nullptr;
     gossip_rrs_ptr_ = nullptr;
+    gossip_dispatcher_ptr_ = nullptr;
+    gossip_vdg_ = nullptr;
 }
 
 kadmlia::ElectRoutingTablePtr WrouterHandler::FindElectRoutingTable(base::ServiceType service_type) {

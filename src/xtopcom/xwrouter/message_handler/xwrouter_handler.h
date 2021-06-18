@@ -45,9 +45,9 @@ class WrouterHandler {
 public:
     WrouterHandler(transport::TransportPtr transport_ptr,
                    std::shared_ptr<gossip::GossipInterface> bloom_gossip_ptr,
-                   std::shared_ptr<gossip::GossipInterface> bloom_layer_gossip_ptr,
                    std::shared_ptr<gossip::GossipInterface> gossip_rrs_ptr,
-                   std::shared_ptr<gossip::GossipInterface> gossip_dispatcher_ptr);
+                   std::shared_ptr<gossip::GossipInterface> gossip_dispatcher_ptr,
+                   std::shared_ptr<gossip::GossipInterface> gossip_vdg);
     virtual ~WrouterHandler();
 
     // xip
@@ -95,9 +95,9 @@ protected:
 protected:
     transport::TransportPtr transport_ptr_;
     std::shared_ptr<gossip::GossipInterface> bloom_gossip_ptr_;
-    std::shared_ptr<gossip::GossipInterface> bloom_layer_gossip_ptr_;
     std::shared_ptr<gossip::GossipInterface> gossip_rrs_ptr_;
     std::shared_ptr<gossip::GossipInterface> gossip_dispatcher_ptr_;
+    std::shared_ptr<gossip::GossipInterface> gossip_vdg_;
 };
 
 } // namespace wrouter 

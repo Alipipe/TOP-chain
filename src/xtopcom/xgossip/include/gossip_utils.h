@@ -20,7 +20,7 @@ enum GossipType {
     kGossipRRS = 2,
     // group broadcast type
     kGossipDispatcher = 3,
-    // kGossipBloomfilterAndLayered = 4,
+    kGossipVerifiableDirectedGraph = 4,
 };
 
 static const uint32_t kGossipSendoutMaxTimes = 3u;

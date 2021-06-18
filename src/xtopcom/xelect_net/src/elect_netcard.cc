@@ -187,7 +187,8 @@ int EcNetcard::send(
         // return GossipWithHeaderBlock(pbft_message, gossip::kGossipRRS, chain_data_hash, static_cast<uint32_t>(message.id()));
     }
 
-    return GossipDispatchBroadcast(pbft_message, gossip::kGossipDispatcher, chain_data_hash, static_cast<uint32_t>(message.id()));
+    // return GossipDispatchBroadcast(pbft_message, gossip::kGossipDispatcher, chain_data_hash, static_cast<uint32_t>(message.id()));
+    return GossipDispatchBroadcast(pbft_message, gossip::kGossipVerifiableDirectedGraph, chain_data_hash, static_cast<uint32_t>(message.id()));
 }
 
 int EcNetcard::GossipWithHeaderBlock(transport::protobuf::RoutingMessage & pbft_message, uint32_t block_gossip_type, uint32_t chain_data_hash, uint32_t chain_msgid) const {

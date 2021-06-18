@@ -65,6 +65,7 @@ public:
     std::unordered_map<std::string, NodeInfoPtr> nodes();
     std::unordered_map<std::string, std::size_t> index_map();
     std::vector<std::string> get_shuffled_xip2();
+    std::vector<std::string> get_stable_xip2();
     std::size_t get_self_index();
 
     NodeInfoPtr GetNode(const std::string & id);

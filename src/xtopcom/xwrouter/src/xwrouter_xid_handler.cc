@@ -28,11 +28,11 @@ namespace wrouter {
 
 WrouterXidHandler::WrouterXidHandler(transport::TransportPtr transport_ptr,
                                      std::shared_ptr<gossip::GossipInterface> bloom_gossip_ptr,
-                                     std::shared_ptr<gossip::GossipInterface> bloom_layer_gossip_ptr,
                                      std::shared_ptr<gossip::GossipInterface> gossip_rrs_ptr,
-                                     std::shared_ptr<gossip::GossipInterface> gossip_dispatcher_ptr)
+                                     std::shared_ptr<gossip::GossipInterface> gossip_dispatcher_ptr,
+                                     std::shared_ptr<gossip::GossipInterface> gossip_vdg)
 
-  : WrouterHandler(transport_ptr, bloom_gossip_ptr, bloom_layer_gossip_ptr, gossip_rrs_ptr, gossip_dispatcher_ptr) {
+  : WrouterHandler(transport_ptr, bloom_gossip_ptr, gossip_rrs_ptr, gossip_dispatcher_ptr, gossip_vdg) {
 }
 
 WrouterXidHandler::~WrouterXidHandler() {
@@ -228,11 +228,13 @@ int32_t WrouterXidHandler::SendMulticast(transport::protobuf::RoutingMessage & m
 
     // return GossipBroadcast(message, routing_table);
     uint32_t gossip_type = message.gossip().gossip_type();
-    assert(gossip_type == kGossipDispatcher);
 
     switch (gossip_type) {
     case kGossipDispatcher:
         gossip_dispatcher_ptr_->Broadcast(message, routing_table);
+        break;
+    case kGossipVerifiableDirectedGraph:
+        gossip_vdg_->Broadcast(message, routing_table);
         break;
     default:
         xwarn("invalid gossip_type:%d", gossip_type);
